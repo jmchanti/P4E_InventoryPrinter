@@ -1,26 +1,30 @@
 import io
 from random import randint
 from unittest.mock import Mock
-import oddAbsolute
+import counter
 
-def test_calculateAbsolute_printsABS_lessThan21(capfd, monkeypatch):
-    in_num = randint(-100, 21)
-    input = [in_num]
+def test_calculate_printsLineCountSmallFile(capfd, monkeypatch):
+    input = ['mbox-short.txt']
     monkeypatch.setattr('builtins.input', lambda _:input.pop())
-    oddAbsolute.calculateAbsolute()
+    counter.countDayOfTheWeek()
 
     out, err = capfd.readouterr()
-    expected = "Result: "+str(abs(in_num-21))+"\n"
-    assert out == expected
+    assert "\'Sat\': 1," in out
+    assert "\'Fri\': 20," in out
+    assert "\'Thu\': 6" in out
 
 
-def test_calculateAbsolute_printsDoubleAbs_greaterThan21(capfd, monkeypatch):
-    in_num = randint(21, 200)
-    input = [in_num]
+def test_calculate_printsLineCountLargeFile(capfd, monkeypatch):
+    input = ['mbox-long.txt']
     monkeypatch.setattr('builtins.input', lambda _:input.pop())
-    oddAbsolute.calculateAbsolute()
+    counter.countDayOfTheWeek()
 
     out, err = capfd.readouterr()
-    expected = "Result: "+str(abs(2*(in_num-21)))+"\n"
-    print(in_num)
-    assert out == expected
+    
+    assert "\'Sat\': 61," in out
+    assert "\'Fri\': 315" in out
+    assert "\'Wed\': 292" in out
+    assert "\'Thu\': 392" in out
+    assert "\'Tue\': 372" in out
+    assert "\'Mon\': 299" in out
+    assert "\'Sun\': 66" in out
