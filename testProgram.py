@@ -1,30 +1,32 @@
 import io
+import json
 from random import randint
 from unittest.mock import Mock
-import counter
+import displayInventory
 
-def test_calculate_printsLineCountSmallFile(capfd, monkeypatch):
-    input = ['mbox-short.txt']
-    monkeypatch.setattr('builtins.input', lambda _:input.pop())
-    counter.countDayOfTheWeek()
-
-    out, err = capfd.readouterr()
-    assert "\'Sat\': 1," in out
-    assert "\'Fri\': 20," in out
-    assert "\'Thu\': 6" in out
-
-
-def test_calculate_printsLineCountLargeFile(capfd, monkeypatch):
-    input = ['mbox-long.txt']
-    monkeypatch.setattr('builtins.input', lambda _:input.pop())
-    counter.countDayOfTheWeek()
+def test_displayInventory_basic_result(capfd, monkeypatch):
+    inputString ="{\"rope\": 1, \"torch\": 6, \"gold coin\": 42, \"ring\": 1, \"apple\": 12}"
+    displayInventory.displayInventory(json.loads(inputString))
 
     out, err = capfd.readouterr()
+   
+    assert "Inventory:" in out
+    assert "1 rope" in out
+    assert "6 torch" in out
+    assert "42 gold coin" in out
+    assert "1 ring" in out
+    assert "12 apple" in out
     
-    assert "\'Sat\': 61," in out
-    assert "\'Fri\': 315" in out
-    assert "\'Wed\': 292" in out
-    assert "\'Thu\': 392" in out
-    assert "\'Tue\': 372" in out
-    assert "\'Mon\': 299" in out
-    assert "\'Sun\': 66" in out
+def test_displayInventory_differentImput_result(capfd, monkeypatch):
+    inputString ="{\"rope\": 7, \"torch\": 12, \"gold coin\": 42, \"ring\": 1, \"apple\": 12, \"axe\": 785}"
+    displayInventory.displayInventory(json.loads(inputString))
+
+    out, err = capfd.readouterr()
+   
+    assert "Inventory:" in out
+    assert "7 rope" in out
+    assert "12 torch" in out
+    assert "42 gold coin" in out
+    assert "1 ring" in out
+    assert "12 apple" in out
+    assert "785 axe" in out
