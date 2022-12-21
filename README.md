@@ -1,15 +1,36 @@
 
-## Steps for completion
+## Assignment
+You are creating a fantasy video game. The data structure to model the player’s inventory will be a dictionary where the keys are string values describing the item in the inventory and the value is an integer value detailing how many of that item the player has. For example, the dictionary value 
 
-1. Open `counter.py`
-1. Complete the assignment as described in https://canvas.instructure.com/courses/3650963/assignments/25666027?module_item_id=55313484
-3. Note: complete the code inside the counter section.  Each line should be indented between the comments in that file.  For example
+`{'rope': 1, 'torch': 6, 'gold coin': 42, 'ring': 1, 'apple': 12}` 
 
-displayInventory():
-    all of the
-    code you are writing
-    should be indented 4 spaces
-    in between the comments in that file
+means the player has 1 rope, 6 torches, 42 gold coins, and so on.
 
-1. When ready to submit, press the sync button in the assignments tab.
-1.  Hint: the desired output needs to be printed as described in the assignment, if it is not, the tests will fail.
+Write a function named `displayInventory()` that would take any possible “inventory” and display it like the following:
+
+## Desired Output
+```
+Inventory:
+12 apple
+42 gold coin
+1 rope
+6 torch
+1 ring
+Total number of items: 62
+```
+
+## Starter Code
+```python
+stuff = {'rope': 1, 'torch': 6, 'gold coin': 42, 'ring': 1, 'apple': 12}
+
+def displayInventory(inventory):
+    # your code goes here
+
+
+if __name__ == "__main__":
+    displayInventory(stuff)
+```
+
+## Tests
+When your code is ready to test, run `pytest` in the terminal.
+
